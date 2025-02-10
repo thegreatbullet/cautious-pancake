@@ -19,7 +19,7 @@ connectDB()
 
 /*--------------------------Middleware--------------------------*/
 
-app.use(cors({ origin: 'https://reimagined-octo-umbrella-1.onrender.com/' }))
+app.use(cors({ origin: '*' }))
 app.use('/static', express.static(path.join(__dirname, 'static')))
 app.use(express.json())
 
