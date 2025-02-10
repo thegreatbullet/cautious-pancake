@@ -1,19 +1,25 @@
 /*---------------------------Import---------------------------*/
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path')
-require('dotenv').config()
+
+const connectDB = require('./db') // Import DB connection
 
 /*---------------------------Express Connect---------------------------*/
 const pokemonRoutes = require('./routes/PokemonRoutes')
 
 const app = express()
-const PORT = process.env.PORT || 3000 // Use environment port or default to 3000
+const PORT = process.env.PORT || 8080 // Use environment port or default to 3000
+
+/*--------------------------Connect Database--------------------------*/
+
+connectDB()
 
 /*--------------------------Middleware--------------------------*/
 
-app.use(cors({ origin: 'http://localhost:3001' }))
+app.use(cors({ origin: 'https://reimagined-octo-umbrella-1.onrender.com/' }))
 app.use('/static', express.static(path.join(__dirname, 'static')))
 app.use(express.json())
 
