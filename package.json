@@ -1,9 +1,10 @@
 {
-  "name": "software",
+  "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,6 @@
     "mongoose": "^8.10.0"
   },
   "devDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "nodemon": "^3.1.10"
   }
 }
