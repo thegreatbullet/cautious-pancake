@@ -7,7 +7,8 @@ const path = require('path')
 const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
 const errorMiddleware = require('./middleware/errorMiddleware')
-const logger = require('./utils/logger') // Winston logger
+const logger = require('./utils/logger') // Winston logger=
+const promClient = require('prom-client')
 
 const connectDB = require('./db') // DB connection
 const pokemonRoutes = require('./routes/pokemonRoutes')
@@ -38,6 +39,35 @@ const globalLimiter = rateLimit({
 })
 app.use(globalLimiter)
 
+/*---------------------------Prometheus Metrics---------------------------*/
+// Collect default metrics (CPU, memory, etc.)
+promClient.collectDefaultMetrics()
+
+// Counter for HTTP requests
+const httpRequestsTotal = new promClient.Counter({
+  name: 'http_requests_total',
+  help: 'Total number of HTTP requests',
+  labelNames: ['method', 'route', 'statusCode'],
+})
+
+// Middleware to count requests
+app.use((req, res, next) => {
+  res.on('finish', () => {
+    httpRequestsTotal.inc({
+      method: req.method,
+      route: req.path,
+      statusCode: res.statusCode,
+    })
+  })
+  next()
+})
+
+// Expose metrics at /metrics
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', promClient.register.contentType)
+  res.end(await promClient.register.metrics())
+})
+
 /*---------------------------Database Connection---------------------------*/
 const mongoURI =
   process.env.MONGO_URI || 'mongodb://localhost:27017/my_database'
@@ -56,7 +86,7 @@ app.get('/', (req, res) => {
 // Versioned API route
 app.use('/api/v1/pokemon', pokemonRoutes)
 
-/*---------------------------Error Handling---------------------------*/
+// Custom error middleware
 app.use(errorMiddleware)
 
 /*---------------------------Start Server---------------------------*/
