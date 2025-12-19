@@ -1,21 +1,27 @@
+const Pokemon = require('../models/pokemonModel')
+const RollHistory = require('../models/pokemonRollHistoryModel')
+const cache = require('../services/pokemonService').cache // if you export cache from service
+
 const {
-  getAllPokemon,
+  getAllPokemon: serviceGetAllPokemon,
   createPokemon,
-  rollRandomPokemon,
-  getRollHistory,
+  rollRandomPokemon: serviceRollRandomPokemon,
+  getRollHistory: serviceGetRollHistory,
 } = require('../services/pokemonService')
 
-// GET /api/pokemon
+// GET /api/v1/pokemon
 const getPokemon = async (req, res, next) => {
   try {
-    const pokemons = await getAllPokemon()
-    res.status(200).json(pokemons)
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 20
+    const result = await serviceGetAllPokemon(page, limit)
+    res.status(200).json(result)
   } catch (error) {
     next(error)
   }
 }
 
-// POST /api/pokemon
+// POST /api/v1/pokemon
 const addPokemon = async (req, res, next) => {
   try {
     const { number, name, type, imageUrl } = req.body
@@ -26,24 +32,26 @@ const addPokemon = async (req, res, next) => {
   }
 }
 
-// GET /api/pokemon/roll
+// POST /api/v1/pokemon/roll
 const rollPokemon = async (req, res, next) => {
   try {
-    const pokemon = await rollRandomPokemon()
+    const pokemon = await serviceRollRandomPokemon()
     res.status(200).json(pokemon)
   } catch (error) {
     next(error)
   }
 }
 
-// GET roll history
-const rollHistory = async (req, res, next) => {
+// GET /api/v1/pokemon/roll/history
+const getRollHistory = async (req, res, next) => {
   try {
-    const history = await getRollHistory(50) // latest 50 rolls
-    res.status(200).json(history)
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 20
+    const result = await serviceGetRollHistory(page, limit)
+    res.status(200).json(result)
   } catch (error) {
     next(error)
   }
 }
 
-module.exports = { getPokemon, addPokemon, rollPokemon }
+module.exports = { getPokemon, addPokemon, rollPokemon, getRollHistory }
