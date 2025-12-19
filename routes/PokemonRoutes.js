@@ -4,7 +4,7 @@ const {
   getPokemon,
   addPokemon,
   rollPokemon,
-  rollHistory,
+  getRollHistory, // corrected name
 } = require('../controllers/controller')
 const validatePokemonData = require('../middleware/validatePokemonData')
 
@@ -18,6 +18,6 @@ router.post('/', validatePokemonData, addPokemon)
 router.post('/roll', rollPokemon)
 
 // GET roll history
-router.get('/roll/history', rollHistory)
+router.get('/roll/history', getRollHistory)
 
 module.exports = router
