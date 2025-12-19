@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Express and MongoDB app!')
 })
 
-app.use('/api/pokemon', pokemonRoutes)
+app.use('/api/v1/pokemon', pokemonRoutes)
 
 /*---------------------------Start Server---------------------------*/
 app.listen(PORT, () => {

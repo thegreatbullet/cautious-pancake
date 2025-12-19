@@ -1,23 +1,49 @@
-const Pokemon = require('../models/PokemonModel')
+const {
+  getAllPokemon,
+  createPokemon,
+  rollRandomPokemon,
+  getRollHistory,
+} = require('../services/pokemonService')
 
+// GET /api/pokemon
 const getPokemon = async (req, res, next) => {
   try {
-    const pokemons = await Pokemon.find()
-    res.json(pokemons)
+    const pokemons = await getAllPokemon()
+    res.status(200).json(pokemons)
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch Pokémon' })
     next(error)
   }
 }
 
+// POST /api/pokemon
 const addPokemon = async (req, res, next) => {
   try {
     const { number, name, type, imageUrl } = req.body
-    const pokemon = new Pokemon({ number, name, type, imageUrl })
-    await pokemon.save()
+    const pokemon = await createPokemon({ number, name, type, imageUrl })
+    res.status(201).json(pokemon)
   } catch (error) {
     next(error)
   }
 }
 
-module.exports = { getPokemon, addPokemon }
+// GET /api/pokemon/roll
+const rollPokemon = async (req, res, next) => {
+  try {
+    const pokemon = await rollRandomPokemon()
+    res.status(200).json(pokemon)
+  } catch (error) {
+    next(error)
+  }
+}
+
+// GET roll history
+const rollHistory = async (req, res, next) => {
+  try {
+    const history = await getRollHistory(50) // latest 50 rolls
+    res.status(200).json(history)
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = { getPokemon, addPokemon, rollPokemon }
