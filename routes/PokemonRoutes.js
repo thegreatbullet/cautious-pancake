@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
+const rateLimit = require('express-rate-limit')
 const {
   getPokemon,
   addPokemon,
   rollPokemon,
   getRollHistory,
-  deletePokemon, // new admin-only route
-  deleteRollHistory, // new admin-only route
+  deletePokemon, // admin-only
+  deleteRollHistory, // admin-only
 } = require('../controllers/controller')
 
 // Validation
@@ -16,13 +17,20 @@ const pokemonSchema = require('../validation/pokemonSchema')
 // Auth middleware
 const authMiddleware = require('../middleware/authMiddleware')
 
-// Public routes
+// Roll limiter: 20 rolls per 30 minutes per IP
+const rollLimiter = rateLimit({
+  windowMs: 30 * 60 * 1000, // 30 minutes
+  max: 20,
+  message: 'Too many rolls, try again later.',
+})
+
+// ----------------- Public routes -----------------
 router.get('/', getPokemon)
 router.post('/', validateBody(pokemonSchema), addPokemon)
-router.post('/roll', rollPokemon)
+router.post('/roll', rollLimiter, rollPokemon) // apply limiter here
 router.get('/roll/history', getRollHistory)
 
-// Admin-only routes
+// ----------------- Admin-only routes -----------------
 router.delete('/:id', authMiddleware(['admin']), deletePokemon)
 router.delete('/roll/history/:id', authMiddleware(['admin']), deleteRollHistory)
 
