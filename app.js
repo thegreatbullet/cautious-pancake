@@ -8,7 +8,7 @@ const path = require('path')
 const connectDB = require('./db') // Import DB connection
 
 /*---------------------------Express Connect---------------------------*/
-const pokemonRoutes = require('./routes/PokemonRoutes')
+const pokemonRoutes = require('./routes/pokemonRoutes')
 
 const app = express()
 const PORT = process.env.PORT || 8080 // Use environment port or default to 3000

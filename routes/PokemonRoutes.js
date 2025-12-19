@@ -4,17 +4,20 @@ const {
   getPokemon,
   addPokemon,
   rollPokemon,
-  getRollHistory, // corrected name
+  getRollHistory,
 } = require('../controllers/controller')
-const validatePokemonData = require('../middleware/validatePokemonData')
+
+// Replace old custom middleware with Joi-based validation
+const validateBody = require('../validation/validateBody')
+const pokemonSchema = require('../validation/pokemonSchema')
 
 // GET all Pokémon
 router.get('/', getPokemon)
 
-// POST new Pokémon (with validation)
-router.post('/', validatePokemonData, addPokemon)
+// POST new Pokémon (with Joi validation)
+router.post('/', validateBody(pokemonSchema), addPokemon)
 
-// POST a roll (instead of GET) → strictly RESTful
+// POST a roll → strictly RESTful
 router.post('/roll', rollPokemon)
 
 // GET roll history
