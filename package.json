@@ -5,11 +5,14 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "jest --runInBand",
+    "test": "NODE_ENV=test jest --runInBand",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
   "type": "module",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -36,6 +39,7 @@
     "eslint-define-config": "^2.1.0",
     "eslint-plugin-prettier": "^5.5.4",
     "jest": "^30.2.0",
+    "mongodb-memory-server": "^11.0.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.7.4",
     "supertest": "^7.1.4"
