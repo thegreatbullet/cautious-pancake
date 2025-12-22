@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const rollHistorySchema = new mongoose.Schema(
   {
@@ -22,7 +22,7 @@ const rollHistorySchema = new mongoose.Schema(
   {
     collection: 'rollHistory',
     timestamps: true, // adds createdAt and updatedAt automatically
-  }
-)
+  },
+);
 
-module.exports = mongoose.model('RollHistory', rollHistorySchema)
+module.exports = mongoose.model('RollHistory', rollHistorySchema);

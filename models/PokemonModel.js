@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const pokemonSchema = new mongoose.Schema(
   {
@@ -28,7 +28,7 @@ const pokemonSchema = new mongoose.Schema(
   {
     collection: 'pokemon',
     timestamps: true, // adds createdAt and updatedAt automatically
-  }
-)
+  },
+);
 
-module.exports = mongoose.model('Pokemon', pokemonSchema)
+module.exports = mongoose.model('Pokemon', pokemonSchema);

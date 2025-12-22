@@ -1,12 +1,12 @@
 // utils/logger.js
-const { createLogger, format, transports } = require('winston')
-const path = require('path')
+const { createLogger, format, transports } = require('winston');
+const path = require('path');
 
 // Create logs directory if it doesn't exist
-const fs = require('fs')
-const logDir = path.join(__dirname, '../logs')
+const fs = require('fs');
+const logDir = path.join(__dirname, '../logs');
 if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir)
+  fs.mkdirSync(logDir);
 }
 
 const logger = createLogger({
@@ -15,7 +15,7 @@ const logger = createLogger({
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.errors({ stack: true }),
     format.splat(),
-    format.json()
+    format.json(),
   ),
   defaultMeta: { service: 'pokemon-backend' },
   transports: [
@@ -31,16 +31,14 @@ const logger = createLogger({
     // Log all levels to a combined file
     new transports.File({ filename: path.join(logDir, 'combined.log') }),
   ],
-})
+});
 
 // Handle uncaught exceptions
-logger.exceptions.handle(
-  new transports.File({ filename: path.join(logDir, 'exceptions.log') })
-)
+logger.exceptions.handle(new transports.File({ filename: path.join(logDir, 'exceptions.log') }));
 
 // Crash on unhandled promise rejections
 process.on('unhandledRejection', (ex) => {
-  throw ex
-})
+  throw ex;
+});
 
-module.exports = logger
+module.exports = logger;

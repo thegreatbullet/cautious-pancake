@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const Pokemon = require('../models/PokemonModel') // Adjust the path if needed
+const mongoose = require('mongoose');
+const Pokemon = require('../models/PokemonModel'); // Adjust the path if needed
 
-const mongoURI = 'mongodb://localhost:27017/my_database' // Replace with your DB name
+const mongoURI = 'mongodb://localhost:27017/my_database'; // Replace with your DB name
 
 const pokemons = [
   {
@@ -898,30 +898,30 @@ const pokemons = [
     type: ['Psychic'],
     imageUrl: '../static/images/Version1/151.webp',
   },
-]
+];
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
-    console.log('MongoDB connected')
+    console.log('MongoDB connected');
 
     // Wait for the connection to be fully established
-    await mongoose.connection.db
+    await mongoose.connection.db;
 
     // Check if data already exists
-    const count = await Pokemon.countDocuments() // Ensures connection is active
+    const count = await Pokemon.countDocuments(); // Ensures connection is active
     if (count === 0) {
       // Insert data if collection is empty
-      await Pokemon.insertMany(pokemons)
-      console.log('Data seeded successfully')
+      await Pokemon.insertMany(pokemons);
+      console.log('Data seeded successfully');
     } else {
-      console.log('Data already exists. Skipping seeding.')
+      console.log('Data already exists. Skipping seeding.');
     }
 
     // Disconnect after the operation
-    mongoose.disconnect()
+    mongoose.disconnect();
   })
   .catch((err) => {
-    console.error('Error during database operation:', err)
-    mongoose.disconnect()
-  })
+    console.error('Error during database operation:', err);
+    mongoose.disconnect();
+  });
