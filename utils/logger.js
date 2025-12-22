@@ -1,5 +1,13 @@
+// utils/logger.js
 const { createLogger, format, transports } = require('winston')
-require('winston-daily-rotate-file') // optional for daily rotating logs
+const path = require('path')
+
+// Create logs directory if it doesn't exist
+const fs = require('fs')
+const logDir = path.join(__dirname, '../logs')
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir)
+}
 
 const logger = createLogger({
   level: 'info', // minimum log level
@@ -11,19 +19,26 @@ const logger = createLogger({
   ),
   defaultMeta: { service: 'pokemon-backend' },
   transports: [
-    // Console logging for development
+    // Log info and above to console
     new transports.Console({
       format: format.combine(format.colorize(), format.simple()),
     }),
-    // File logging
-    new transports.File({ filename: 'logs/error.log', level: 'error' }),
-    new transports.File({ filename: 'logs/combined.log' }),
+    // Log errors to a file
+    new transports.File({
+      filename: path.join(logDir, 'error.log'),
+      level: 'error',
+    }),
+    // Log all levels to a combined file
+    new transports.File({ filename: path.join(logDir, 'combined.log') }),
   ],
-  exceptionHandlers: [new transports.File({ filename: 'logs/exceptions.log' })],
-  rejectionHandlers: [new transports.File({ filename: 'logs/rejections.log' })],
 })
 
-// Optional: log unhandled promise rejections to exceptions
+// Handle uncaught exceptions
+logger.exceptions.handle(
+  new transports.File({ filename: path.join(logDir, 'exceptions.log') })
+)
+
+// Crash on unhandled promise rejections
 process.on('unhandledRejection', (ex) => {
   throw ex
 })

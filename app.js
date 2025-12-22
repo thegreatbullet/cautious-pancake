@@ -89,6 +89,9 @@ app.use('/api/v1/pokemon', pokemonRoutes)
 // Custom error middleware
 app.use(errorMiddleware)
 
+// app.js
+app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }))
+
 /*---------------------------Start Server---------------------------*/
 app.listen(PORT, () => {
   logger.info('🚀 Server running at http://localhost:%d', PORT)

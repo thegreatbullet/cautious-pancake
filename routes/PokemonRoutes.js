@@ -6,9 +6,12 @@ const {
   addPokemon,
   rollPokemon,
   getRollHistory,
-  deletePokemon, // admin-only
-  deleteRollHistory, // admin-only
-} = require('../controllers/controller')
+} = require('../controllers/pokemonController')
+
+const {
+  deletePokemon,
+  deleteRollHistory,
+} = require('../controllers/adminController')
 
 // Validation
 const validateBody = require('../validation/validateBody')
