@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "NODE_ENV=test jest --runInBand",
+    "test": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --runInBand",
     "lint": "eslint .",
     "format": "prettier --write ."
   },

@@ -3,12 +3,13 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      dbName: 'pokemon_firered', // 🔥 Ensure the correct database name is set
-    });
-    console.log('MongoDB Connected');
+    // Only connect if not already connected
+    if (mongoose.connection.readyState === 0) {
+      await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/pokemon_firered', {
+        dbName: 'pokemon_firered',
+      });
+      console.log('MongoDB Connected');
+    }
   } catch (error) {
     console.error('MongoDB Connection Error:', error);
     process.exit(1); // Exit process with failure
