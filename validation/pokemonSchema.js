@@ -1,4 +1,4 @@
-const Joi = require('joi');
+import Joi from 'joi';
 
 const pokemonSchema = Joi.object({
   number: Joi.number().integer().min(1).required(),
@@ -7,4 +7,4 @@ const pokemonSchema = Joi.object({
   imageUrl: Joi.string().uri().optional(),
 });
 
-module.exports = pokemonSchema;
+export default pokemonSchema;

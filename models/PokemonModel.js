@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+// backend/models/pokemonModel.js
+import mongoose from 'mongoose';
 
 const pokemonSchema = new mongoose.Schema(
   {
@@ -31,4 +32,4 @@ const pokemonSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Pokemon', pokemonSchema);
+export default mongoose.model('Pokemon', pokemonSchema);

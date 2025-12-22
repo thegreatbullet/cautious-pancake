@@ -1,14 +1,14 @@
-const {
-  getAllPokemon: serviceGetAllPokemon,
+import {
+  getAllPokemon as serviceGetAllPokemon,
   createPokemon,
-  rollRandomPokemon: serviceRollRandomPokemon,
-  getRollHistory: serviceGetRollHistory,
-} = require('../services/pokemonService');
+  rollRandomPokemon as serviceRollRandomPokemon,
+  getRollHistory as serviceGetRollHistory,
+} from '../services/pokemonService.js';
 
-const { logMessage } = require('./logController');
+import { logMessage } from './logController.js';
 
 // GET /api/v1/pokemon
-const getPokemon = async (req, res, next) => {
+export const getPokemon = async (req, res, next) => {
   try {
     const page = Math.max(parseInt(req.query.page) || 1, 1);
     const limit = Math.min(Math.max(parseInt(req.query.limit) || 20, 1), 100);
@@ -27,7 +27,7 @@ const getPokemon = async (req, res, next) => {
 };
 
 // POST /api/v1/pokemon
-const addPokemon = async (req, res, next) => {
+export const addPokemon = async (req, res, next) => {
   try {
     const { number, name, type, imageUrl } = req.body;
     const pokemon = await createPokemon({ number, name, type, imageUrl });
@@ -41,7 +41,7 @@ const addPokemon = async (req, res, next) => {
 };
 
 // POST /api/v1/pokemon/roll
-const rollPokemon = async (req, res, next) => {
+export const rollPokemon = async (req, res, next) => {
   try {
     const pokemon = await serviceRollRandomPokemon();
 
@@ -57,7 +57,7 @@ const rollPokemon = async (req, res, next) => {
 };
 
 // GET /api/v1/pokemon/roll/history
-const getRollHistory = async (req, res, next) => {
+export const getRollHistory = async (req, res, next) => {
   try {
     const page = Math.max(parseInt(req.query.page) || 1, 1);
     const limit = Math.min(Math.max(parseInt(req.query.limit) || 20, 1), 100);
@@ -74,5 +74,3 @@ const getRollHistory = async (req, res, next) => {
     next(error);
   }
 };
-
-module.exports = { getPokemon, addPokemon, rollPokemon, getRollHistory };

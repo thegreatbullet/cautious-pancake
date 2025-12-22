@@ -1,5 +1,4 @@
-// backend/middleware/errorMiddleware.js
-const { logMessage } = require('../controllers/logController');
+import { logMessage } from '../controllers/logController.js';
 
 const errorMiddleware = (err, req, res, next) => {
   // Log full error details
@@ -16,4 +15,4 @@ const errorMiddleware = (err, req, res, next) => {
   });
 };
 
-module.exports = errorMiddleware;
+export default errorMiddleware;

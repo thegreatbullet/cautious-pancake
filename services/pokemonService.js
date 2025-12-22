@@ -1,12 +1,22 @@
-const Pokemon = require('../models/pokemonModel');
-const RollHistory = require('../models/pokemonRollHistoryModel');
-const NodeCache = require('node-cache');
+import mongoose from 'mongoose';
+import Pokemon from '../models/pokemonModel.js';
+import RollHistory from '../models/pokemonRollHistoryModel.js';
+import NodeCache from 'node-cache';
 
-// Initialize cache (60 seconds TTL)
+// Initialize cache with 60 seconds TTL
 const cache = new NodeCache({ stdTTL: 60 });
 
-// GET all Pokémon with pagination and caching
-const getAllPokemon = async (page = 1, limit = 20) => {
+// Helper to invalidate cache by prefix
+const invalidateCache = (prefix) => {
+  cache.keys().forEach((key) => {
+    if (key.startsWith(prefix)) cache.del(key);
+  });
+};
+
+/**
+ * GET all Pokémon with pagination and caching
+ */
+export const getAllPokemon = async (page = 1, limit = 20) => {
   const cacheKey = `allPokemon_page${page}_limit${limit}`;
   const cached = cache.get(cacheKey);
   if (cached) return cached;
@@ -20,8 +30,10 @@ const getAllPokemon = async (page = 1, limit = 20) => {
   return result;
 };
 
-// Create new Pokémon
-const createPokemon = async ({ number, name, type, imageUrl }) => {
+/**
+ * Create new Pokémon and invalidate cache
+ */
+export const createPokemon = async ({ number, name, type, imageUrl }) => {
   const pokemon = new Pokemon({
     number,
     name: name.trim(),
@@ -30,43 +42,44 @@ const createPokemon = async ({ number, name, type, imageUrl }) => {
   });
 
   await pokemon.save();
-  // Invalidate all Pokémon cache
-  cache.keys().forEach((key) => {
-    if (key.startsWith('allPokemon_')) cache.del(key);
-  });
+  invalidateCache('allPokemon_');
 
   return pokemon;
 };
 
-// Roll / get random Pokémon and log history
-const rollRandomPokemon = async () => {
+/**
+ * Roll / get a random Pokémon and log history
+ */
+export const rollRandomPokemon = async () => {
   const count = await Pokemon.countDocuments();
   if (count === 0) throw new Error('No Pokémon available to roll');
 
   let randomPokemon;
   const lastRoll = await RollHistory.findOne().sort({ rolledAt: -1 });
 
-  do {
-    const randomIndex = Math.floor(Math.random() * count);
-    randomPokemon = await Pokemon.findOne().skip(randomIndex);
-  } while (lastRoll && randomPokemon._id.equals(lastRoll.pokemonId));
+  if (count === 1) {
+    randomPokemon = await Pokemon.findOne().lean();
+  } else {
+    do {
+      const randomIndex = Math.floor(Math.random() * count);
+      randomPokemon = await Pokemon.findOne().skip(randomIndex).lean();
+    } while (lastRoll && randomPokemon._id.equals(lastRoll.pokemonId));
+  }
 
-  // Log roll history
   await RollHistory.create({
     pokemonId: randomPokemon._id,
     name: randomPokemon.name,
   });
 
-  // Invalidate all roll history cache
-  cache.keys().forEach((key) => {
-    if (key.startsWith('rollHistory_')) cache.del(key);
-  });
+  invalidateCache('rollHistory_');
 
   return randomPokemon;
 };
 
-// Fetch roll history with pagination and caching
-const getRollHistory = async (page = 1, limit = 20) => {
+/**
+ * Fetch roll history with pagination and caching
+ */
+export const getRollHistory = async (page = 1, limit = 20) => {
   const cacheKey = `rollHistory_page${page}_limit${limit}`;
   const cached = cache.get(cacheKey);
   if (cached) return cached;
@@ -85,17 +98,13 @@ const getRollHistory = async (page = 1, limit = 20) => {
   return result;
 };
 
-// Get Pokémon by array of IDs (parallel fetch)
-const getPokemonByIds = async (ids) => {
+/**
+ * Get Pokémon by array of IDs (parallel fetch)
+ */
+export const getPokemonByIds = async (ids) => {
   const promises = ids.map((id) => Pokemon.findById(id).lean());
-  return await Promise.all(promises);
+  return Promise.all(promises);
 };
 
-module.exports = {
-  getAllPokemon,
-  createPokemon,
-  rollRandomPokemon,
-  getRollHistory,
-  getPokemonByIds,
-  cache, // export cache if needed elsewhere
-};
+// Export cache if needed elsewhere
+export { cache };

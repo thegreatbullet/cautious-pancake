@@ -1,21 +1,26 @@
 /*---------------------------Imports---------------------------*/
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const path = require('path');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const errorMiddleware = require('./middleware/errorMiddleware');
-const logger = require('./utils/logger'); // Winston logger=
-const promClient = require('prom-client');
+import 'dotenv/config'; // automatically loads .env
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import errorMiddleware from './middleware/errorMiddleware.js';
+import logger from './utils/logger.js'; // Winston logger
+import promClient from 'prom-client';
 
-const connectDB = require('./db'); // DB connection
-const pokemonRoutes = require('./routes/pokemonRoutes');
+import connectDB from './db.js'; // DB connection
+import pokemonRoutes from './routes/pokemonRoutes.js';
 
 /*---------------------------App Setup---------------------------*/
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+// __dirname replacement in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /*---------------------------Middleware---------------------------*/
 // Security headers
@@ -88,7 +93,7 @@ app.use('/api/v1/pokemon', pokemonRoutes);
 // Custom error middleware
 app.use(errorMiddleware);
 
-// app.js
+// Health check
 app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
 
 /*---------------------------Start Server---------------------------*/
@@ -96,4 +101,4 @@ app.listen(PORT, () => {
   logger.info('🚀 Server running at http://localhost:%d', PORT);
 });
 
-module.exports = app;
+export default app;

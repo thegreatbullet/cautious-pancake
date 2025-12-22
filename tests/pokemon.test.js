@@ -1,9 +1,9 @@
-const request = require('supertest');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const app = require('../app');
-const Pokemon = require('../models/pokemonModel');
-const RollHistory = require('../models/pokemonRollHistoryModel');
+import request from 'supertest';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import app from '../app.js';
+import Pokemon from '../models/pokemonModel.js';
+import RollHistory from '../models/pokemonRollHistoryModel.js';
 
 // Generate a test admin JWT
 const adminToken = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET || 'testsecret');

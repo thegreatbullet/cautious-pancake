@@ -1,4 +1,4 @@
-const logger = require('../utils/logger');
+import logger from '../utils/logger.js';
 
 /**
  * Log a custom message
@@ -6,7 +6,7 @@ const logger = require('../utils/logger');
  * @param {string} message - message to log
  * @param {object} [meta] - optional additional metadata
  */
-const logMessage = (level, message, meta = {}) => {
+export const logMessage = (level, message, meta = {}) => {
   if (!['info', 'warn', 'error', 'debug'].includes(level)) {
     level = 'info';
   }
@@ -16,7 +16,7 @@ const logMessage = (level, message, meta = {}) => {
 /**
  * Express middleware to log incoming requests
  */
-const logRequest = (req, res, next) => {
+export const logRequest = (req, res, next) => {
   logger.info('Incoming request: %s %s from IP %s', req.method, req.originalUrl, req.ip);
   next();
 };
@@ -24,13 +24,7 @@ const logRequest = (req, res, next) => {
 /**
  * Express middleware to log errors
  */
-const logError = (err, req, res, next) => {
+export const logError = (err, req, res, next) => {
   logger.error('Error on %s %s: %o', req.method, req.originalUrl, err);
   next(err);
-};
-
-module.exports = {
-  logMessage,
-  logRequest,
-  logError,
 };

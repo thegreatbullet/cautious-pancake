@@ -1,16 +1,20 @@
-// utils/logger.js
-const { createLogger, format, transports } = require('winston');
-const path = require('path');
+import { createLogger, format, transports } from 'winston';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 
-// Create logs directory if it doesn't exist
-const fs = require('fs');
+// Get __dirname in ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Ensure logs directory exists
 const logDir = path.join(__dirname, '../logs');
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
 
 const logger = createLogger({
-  level: 'info', // minimum log level
+  level: 'info', // Minimum log level
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.errors({ stack: true }),
@@ -41,4 +45,4 @@ process.on('unhandledRejection', (ex) => {
   throw ex;
 });
 
-module.exports = logger;
+export default logger;

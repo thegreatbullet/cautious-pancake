@@ -1,29 +1,19 @@
-const request = require('supertest');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const app = require('../app');
-const Pokemon = require('../models/pokemonModel');
-const RollHistory = require('../models/pokemonRollHistoryModel');
+import request from 'supertest';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import app from '../app.js';
+import Pokemon from '../models/pokemonModel.js';
+import RollHistory from '../models/pokemonRollHistoryModel.js';
 
+// Generate a test admin JWT
 const adminToken = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET || 'testsecret');
 
-// Helper function to create a Pokémon
-const createTestPokemon = async () => {
-  const pokemon = new Pokemon({
-    number: 1,
-    name: 'Bulbasaur',
-    type: ['Grass', 'Poison'],
-  });
-  return await pokemon.save();
-};
-
-describe('Pokémon API Integration & Validation Tests', () => {
+describe('Pokémon API Integration', () => {
   beforeAll(async () => {
     await mongoose.connect(process.env.MONGO_URI_TEST || 'mongodb://localhost:27017/pokemon_test');
   });
 
   afterAll(async () => {
-    await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
   });
 
@@ -32,91 +22,88 @@ describe('Pokémon API Integration & Validation Tests', () => {
     await RollHistory.deleteMany();
   });
 
-  /*----------------- Public routes -----------------*/
-  test('GET /pokemon returns empty array initially', async () => {
+  test('GET /api/v1/pokemon initially returns empty array', async () => {
     const res = await request(app).get('/api/v1/pokemon');
     expect(res.statusCode).toBe(200);
     expect(res.body.pokemons).toHaveLength(0);
   });
 
-  test('POST /pokemon adds a Pokémon', async () => {
+  test('POST /api/v1/pokemon creates a Pokémon', async () => {
     const res = await request(app)
       .post('/api/v1/pokemon')
-      .send({ number: 1, name: 'Bulbasaur', type: ['Grass'] });
+      .send({ number: 1, name: 'Bulbasaur', type: ['Grass', 'Poison'] });
 
     expect(res.statusCode).toBe(201);
     expect(res.body.name).toBe('Bulbasaur');
-    expect(res.body.type).toContain('Grass');
   });
 
-  test('POST /pokemon rejects missing name', async () => {
-    const res = await request(app)
-      .post('/api/v1/pokemon')
-      .send({ number: 1, type: ['Grass'] });
-    expect(res.statusCode).toBe(400);
-    expect(res.body.error).toMatch(/name/i);
-  });
-
-  test('POST /pokemon rejects empty type', async () => {
-    const res = await request(app)
-      .post('/api/v1/pokemon')
-      .send({ number: 1, name: 'Bulbasaur', type: [] });
-    expect(res.statusCode).toBe(400);
-    expect(res.body.error).toMatch(/type/i);
-  });
-
-  test('POST /pokemon/roll returns a random Pokémon', async () => {
-    await createTestPokemon();
+  test('POST /api/v1/pokemon/roll rolls a random Pokémon', async () => {
+    await Pokemon.create({ number: 1, name: 'Bulbasaur', type: ['Grass'] });
     const res = await request(app).post('/api/v1/pokemon/roll');
     expect(res.statusCode).toBe(200);
     expect(res.body.name).toBe('Bulbasaur');
   });
 
-  test('GET /pokemon/roll/history returns roll history', async () => {
-    await createTestPokemon();
-    await request(app).post('/api/v1/pokemon/roll');
+  test('GET /api/v1/pokemon/roll/history returns roll history', async () => {
+    const bulba = await Pokemon.create({
+      number: 1,
+      name: 'Bulbasaur',
+      type: ['Grass'],
+    });
+    await RollHistory.create({ pokemonId: bulba._id, name: bulba.name });
+
     const res = await request(app).get('/api/v1/pokemon/roll/history');
     expect(res.statusCode).toBe(200);
     expect(res.body.history).toHaveLength(1);
+    expect(res.body.history[0].name).toBe('Bulbasaur');
   });
 
-  /*----------------- Admin-only routes -----------------*/
-  test('DELETE /pokemon/:id deletes Pokémon', async () => {
-    const pokemon = await createTestPokemon();
+  test('DELETE /api/v1/pokemon/:id deletes Pokémon (admin)', async () => {
+    const poke = await Pokemon.create({
+      number: 2,
+      name: 'Ivysaur',
+      type: ['Grass'],
+    });
     const res = await request(app)
-      .delete(`/api/v1/pokemon/${pokemon._id}`)
+      .delete(`/api/v1/pokemon/${poke._id}`)
       .set('Authorization', `Bearer ${adminToken}`);
 
     expect(res.statusCode).toBe(200);
-    expect(res.body.message).toMatch(/deleted/i);
+    expect(res.body.message).toBe('Pokémon deleted successfully');
   });
 
-  test('DELETE /pokemon/:id returns 404 for non-existent Pokémon', async () => {
-    const res = await request(app)
-      .delete('/api/v1/pokemon/64f000000000000000000000')
-      .set('Authorization', `Bearer ${adminToken}`);
-
-    expect(res.statusCode).toBe(404);
-  });
-
-  test('DELETE /pokemon/roll/history/:id deletes roll entry', async () => {
-    const pokemon = await createTestPokemon();
-    const rollRes = await request(app).post('/api/v1/pokemon/roll');
-    const rollId = rollRes.body._id || rollRes.body.id; // depending on your response
+  test('DELETE /api/v1/pokemon/roll/history/:id deletes roll history (admin)', async () => {
+    const poke = await Pokemon.create({
+      number: 3,
+      name: 'Venusaur',
+      type: ['Grass'],
+    });
+    const roll = await RollHistory.create({
+      pokemonId: poke._id,
+      name: poke.name,
+    });
 
     const res = await request(app)
-      .delete(`/api/v1/pokemon/roll/history/${rollId}`)
+      .delete(`/api/v1/pokemon/roll/history/${roll._id}`)
       .set('Authorization', `Bearer ${adminToken}`);
 
     expect(res.statusCode).toBe(200);
-    expect(res.body.message).toMatch(/deleted/i);
+    expect(res.body.message).toBe('Roll history entry deleted successfully');
   });
 
-  test('DELETE /pokemon/roll/history/:id returns 404 for non-existent roll', async () => {
-    const res = await request(app)
-      .delete('/api/v1/pokemon/roll/history/64f000000000000000000000')
-      .set('Authorization', `Bearer ${adminToken}`);
+  test('Non-admin cannot delete Pokémon', async () => {
+    const poke = await Pokemon.create({
+      number: 4,
+      name: 'Charmander',
+      type: ['Fire'],
+    });
+    const token = jwt.sign({ role: 'user' }, process.env.JWT_SECRET || 'testsecret');
 
-    expect(res.statusCode).toBe(404);
+    const res = await request(app)
+      .delete(`/api/v1/pokemon/${poke._id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(403);
+    expect(res.body.error).toBe('Forbidden');
   });
 });

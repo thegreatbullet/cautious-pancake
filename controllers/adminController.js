@@ -1,9 +1,9 @@
-const Pokemon = require('../models/pokemonModel');
-const RollHistory = require('../models/pokemonRollHistoryModel');
-const { logMessage } = require('./logController');
+import Pokemon from '../models/pokemonModel.js';
+import RollHistory from '../models/pokemonRollHistoryModel.js';
+import { logMessage } from './logController.js';
 
 // Delete a Pokémon (admin only)
-const deletePokemon = async (req, res, next) => {
+export const deletePokemon = async (req, res, next) => {
   try {
     const { id } = req.params;
     const deleted = await Pokemon.findByIdAndDelete(id);
@@ -22,7 +22,7 @@ const deletePokemon = async (req, res, next) => {
 };
 
 // Delete a roll history entry (admin only)
-const deleteRollHistory = async (req, res, next) => {
+export const deleteRollHistory = async (req, res, next) => {
   try {
     const { id } = req.params;
     const deleted = await RollHistory.findByIdAndDelete(id);
@@ -43,9 +43,4 @@ const deleteRollHistory = async (req, res, next) => {
     logMessage('error', 'Error deleting roll history', { error: err });
     next(err);
   }
-};
-
-module.exports = {
-  deletePokemon,
-  deleteRollHistory,
 };

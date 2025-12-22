@@ -1,21 +1,20 @@
-const express = require('express');
-const router = express.Router();
-const rateLimit = require('express-rate-limit');
-const {
+// backend/routes/pokemonRoutes.js
+import express from 'express';
+import rateLimit from 'express-rate-limit';
+
+import {
   getPokemon,
   addPokemon,
   rollPokemon,
   getRollHistory,
-} = require('../controllers/pokemonController');
+} from '../controllers/pokemonController.js';
 
-const { deletePokemon, deleteRollHistory } = require('../controllers/adminController');
+import { deletePokemon, deleteRollHistory } from '../controllers/adminController.js';
+import validateBody from '../validation/validateBody.js';
+import pokemonSchema from '../validation/pokemonSchema.js';
+import authMiddleware from '../middleware/authMiddleware.js';
 
-// Validation
-const validateBody = require('../validation/validateBody');
-const pokemonSchema = require('../validation/pokemonSchema');
-
-// Auth middleware
-const authMiddleware = require('../middleware/authMiddleware');
+const router = express.Router();
 
 // ----------------- Rate Limiting -----------------
 // Limit Pokémon rolls: 20 requests per 30 minutes per IP
@@ -35,4 +34,4 @@ router.get('/roll/history', getRollHistory); // GET roll history
 router.delete('/:id', authMiddleware(['admin']), deletePokemon); // DELETE Pokémon
 router.delete('/roll/history/:id', authMiddleware(['admin']), deleteRollHistory); // DELETE roll history entry
 
-module.exports = router;
+export default router;

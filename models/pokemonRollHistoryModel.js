@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+// backend/models/pokemonRollHistoryModel.js
+import mongoose from 'mongoose';
 
 const rollHistorySchema = new mongoose.Schema(
   {
@@ -25,4 +26,4 @@ const rollHistorySchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('RollHistory', rollHistorySchema);
+export default mongoose.model('RollHistory', rollHistorySchema);
