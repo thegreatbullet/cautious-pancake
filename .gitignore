@@ -12,6 +12,8 @@ yarn-debug.log*
 pnpm-debug.log*
 .log
 .env
+.env.staging
+.env.production
 
 # Build files (if using Webpack or Babel)
 dist/
