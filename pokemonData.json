@@ -3590,12 +3590,6 @@
     "imageUrl": "/static/images/Version5/600.png"
   },
   {
-    "number": 600,
-    "name": "Klang",
-    "type": ["Steel"],
-    "imageUrl": "/static/images/Version5/600.png"
-  },
-  {
     "number": 601,
     "name": "Klinklang",
     "type": ["Steel"],
@@ -3894,12 +3888,6 @@
     "name": "Chespin",
     "type": ["Grass"],
     "imageUrl": "/static/images/Version5/650.png"
-  },
-  {
-    "number": 650,
-    "name": "Chespin",
-    "type": ["Grass"],
-    "imageUrl": "/static/images/Version6/650.png"
   },
   {
     "number": 651,
@@ -4502,304 +4490,310 @@
     "imageUrl": "/static/images/Version7/750.png"
   },
   {
-    "number": 701,
-    "name": "Hawlucha",
-    "type": ["Fighting", "Flying"],
-    "imageUrl": "/static/images/Version6/701.png"
-  },
-  {
-    "number": 702,
-    "name": "Dedenne",
-    "type": ["Electric", "Fairy"],
-    "imageUrl": "/static/images/Version6/702.png"
-  },
-  {
-    "number": 703,
-    "name": "Carbink",
-    "type": ["Rock", "Fairy"],
-    "imageUrl": "/static/images/Version6/703.png"
-  },
-  {
-    "number": 704,
-    "name": "Goomy",
-    "type": ["Dragon"],
-    "imageUrl": "/static/images/Version6/704.png"
-  },
-  {
-    "number": 705,
-    "name": "Sliggoo",
-    "type": ["Dragon"],
-    "imageUrl": "/static/images/Version6/705.png"
-  },
-  {
-    "number": 706,
-    "name": "Goodra",
-    "type": ["Dragon"],
-    "imageUrl": "/static/images/Version6/706.png"
-  },
-  {
-    "number": 707,
-    "name": "Klefki",
-    "type": ["Steel", "Fairy"],
-    "imageUrl": "/static/images/Version6/707.png"
-  },
-  {
-    "number": 708,
-    "name": "Phantump",
-    "type": ["Ghost", "Grass"],
-    "imageUrl": "/static/images/Version6/708.png"
-  },
-  {
-    "number": 709,
-    "name": "Trevenant",
-    "type": ["Ghost", "Grass"],
-    "imageUrl": "/static/images/Version6/709.png"
-  },
-  {
-    "number": 710,
-    "name": "Pumpkaboo",
-    "type": ["Ghost", "Grass"],
-    "imageUrl": "/static/images/Version6/710.png"
-  },
-  {
-    "number": 711,
-    "name": "Gourgeist",
-    "type": ["Ghost", "Grass"],
-    "imageUrl": "/static/images/Version6/711.png"
-  },
-  {
-    "number": 712,
-    "name": "Bergmite",
-    "type": ["Ice"],
-    "imageUrl": "/static/images/Version6/712.png"
-  },
-  {
-    "number": 713,
-    "name": "Avalugg",
-    "type": ["Ice"],
-    "imageUrl": "/static/images/Version6/713.png"
-  },
-  {
-    "number": 714,
-    "name": "Noibat",
-    "type": ["Flying", "Dragon"],
-    "imageUrl": "/static/images/Version6/714.png"
-  },
-  {
-    "number": 715,
-    "name": "Noivern",
-    "type": ["Flying", "Dragon"],
-    "imageUrl": "/static/images/Version6/715.png"
-  },
-  {
-    "number": 716,
-    "name": "Xerneas",
-    "type": ["Fairy"],
-    "imageUrl": "/static/images/Version6/716.png"
-  },
-  {
-    "number": 717,
-    "name": "Yveltal",
-    "type": ["Dark", "Flying"],
-    "imageUrl": "/static/images/Version6/717.png"
-  },
-  {
-    "number": 718,
-    "name": "Zygarde",
-    "type": ["Dragon", "Ground"],
-    "imageUrl": "/static/images/Version6/718.png"
-  },
-  {
-    "number": 719,
-    "name": "Diancie",
-    "type": ["Rock", "Fairy"],
-    "imageUrl": "/static/images/Version6/719.png"
-  },
-  {
-    "number": 720,
-    "name": "Hoopa",
-    "type": ["Psychic", "Ghost"],
-    "imageUrl": "/static/images/Version6/720.png"
-  },
-  {
-    "number": 721,
-    "name": "Volcanion",
-    "type": ["Fire", "Water"],
-    "imageUrl": "/static/images/Version6/721.png"
-  },
-  {
-    "number": 722,
-    "name": "Rowlet",
-    "type": ["Grass", "Flying"],
-    "imageUrl": "/static/images/Version7/722.png"
-  },
-  {
-    "number": 723,
-    "name": "Dartrix",
-    "type": ["Grass", "Flying"],
-    "imageUrl": "/static/images/Version7/723.png"
-  },
-  {
-    "number": 724,
-    "name": "Decidueye",
-    "type": ["Grass", "Ghost"],
-    "imageUrl": "/static/images/Version7/724.png"
-  },
-  {
-    "number": 725,
-    "name": "Litten",
-    "type": ["Fire"],
-    "imageUrl": "/static/images/Version7/725.png"
-  },
-  {
-    "number": 726,
-    "name": "Torracat",
-    "type": ["Fire"],
-    "imageUrl": "/static/images/Version7/726.png"
-  },
-  {
-    "number": 727,
-    "name": "Incineroar",
-    "type": ["Fire", "Dark"],
-    "imageUrl": "/static/images/Version7/727.png"
-  },
-  {
-    "number": 728,
-    "name": "Popplio",
-    "type": ["Water"],
-    "imageUrl": "/static/images/Version7/728.png"
-  },
-  {
-    "number": 729,
-    "name": "Brionne",
-    "type": ["Water"],
-    "imageUrl": "/static/images/Version7/729.png"
-  },
-  {
-    "number": 730,
-    "name": "Primarina",
-    "type": ["Water", "Fairy"],
-    "imageUrl": "/static/images/Version7/730.png"
-  },
-  {
-    "number": 731,
-    "name": "Pikipek",
-    "type": ["Normal", "Flying"],
-    "imageUrl": "/static/images/Version7/731.png"
-  },
-  {
-    "number": 732,
-    "name": "Trumbeak",
-    "type": ["Normal", "Flying"],
-    "imageUrl": "/static/images/Version7/732.png"
-  },
-  {
-    "number": 733,
-    "name": "Toucannon",
-    "type": ["Normal", "Flying"],
-    "imageUrl": "/static/images/Version7/733.png"
-  },
-  {
-    "number": 734,
-    "name": "Yungoos",
-    "type": ["Normal"],
-    "imageUrl": "/static/images/Version7/734.png"
-  },
-  {
-    "number": 735,
-    "name": "Gumshoos",
-    "type": ["Normal"],
-    "imageUrl": "/static/images/Version7/735.png"
-  },
-  {
-    "number": 736,
-    "name": "Grubbin",
-    "type": ["Bug"],
-    "imageUrl": "/static/images/Version7/736.png"
-  },
-  {
-    "number": 737,
-    "name": "Charjabug",
-    "type": ["Bug", "Electric"],
-    "imageUrl": "/static/images/Version7/737.png"
-  },
-  {
-    "number": 738,
-    "name": "Vikavolt",
-    "type": ["Bug", "Electric"],
-    "imageUrl": "/static/images/Version7/738.png"
-  },
-  {
-    "number": 739,
-    "name": "Crabrawler",
-    "type": ["Fighting"],
-    "imageUrl": "/static/images/Version7/739.png"
-  },
-  {
-    "number": 740,
-    "name": "Crabominable",
-    "type": ["Fighting", "Ice"],
-    "imageUrl": "/static/images/Version7/740.png"
-  },
-  {
-    "number": 741,
-    "name": "Oricorio",
-    "type": ["Fire", "Flying"],
-    "imageUrl": "/static/images/Version7/741.png"
-  },
-  {
-    "number": 742,
-    "name": "Cutiefly",
-    "type": ["Bug", "Fairy"],
-    "imageUrl": "/static/images/Version7/742.png"
-  },
-  {
-    "number": 743,
-    "name": "Ribombee",
-    "type": ["Bug", "Fairy"],
-    "imageUrl": "/static/images/Version7/743.png"
-  },
-  {
-    "number": 744,
-    "name": "Rockruff",
-    "type": ["Rock"],
-    "imageUrl": "/static/images/Version7/744.png"
-  },
-  {
-    "number": 745,
-    "name": "Lycanroc",
-    "type": ["Rock"],
-    "imageUrl": "/static/images/Version7/745.png"
-  },
-  {
-    "number": 746,
-    "name": "Wishiwashi",
-    "type": ["Water"],
-    "imageUrl": "/static/images/Version7/746.png"
-  },
-  {
-    "number": 747,
-    "name": "Mareanie",
-    "type": ["Poison", "Water"],
-    "imageUrl": "/static/images/Version7/747.png"
-  },
-  {
-    "number": 748,
-    "name": "Toxapex",
-    "type": ["Poison", "Water"],
-    "imageUrl": "/static/images/Version7/748.png"
-  },
-  {
-    "number": 749,
-    "name": "Mudbray",
-    "type": ["Ground"],
-    "imageUrl": "/static/images/Version7/749.png"
-  },
-  {
     "number": 750,
     "name": "Mudsdale",
     "type": ["Ground"],
     "imageUrl": "/static/images/Version7/750.png"
+  },
+  {
+    "number": 751,
+    "name": "Dewpider",
+    "type": ["Water", "Bug"],
+    "imageUrl": "/static/images/Version7/751.png"
+  },
+  {
+    "number": 752,
+    "name": "Araquanid",
+    "type": ["Water", "Bug"],
+    "imageUrl": "/static/images/Version7/752.png"
+  },
+  {
+    "number": 753,
+    "name": "Fomantis",
+    "type": ["Grass"],
+    "imageUrl": "/static/images/Version7/753.png"
+  },
+  {
+    "number": 754,
+    "name": "Lurantis",
+    "type": ["Grass"],
+    "imageUrl": "/static/images/Version7/754.png"
+  },
+  {
+    "number": 755,
+    "name": "Morelull",
+    "type": ["Grass", "Fairy"],
+    "imageUrl": "/static/images/Version7/755.png"
+  },
+  {
+    "number": 756,
+    "name": "Shiinotic",
+    "type": ["Grass", "Fairy"],
+    "imageUrl": "/static/images/Version7/756.png"
+  },
+  {
+    "number": 757,
+    "name": "Salandit",
+    "type": ["Poison", "Fire"],
+    "imageUrl": "/static/images/Version7/757.png"
+  },
+  {
+    "number": 758,
+    "name": "Salazzle",
+    "type": ["Poison", "Fire"],
+    "imageUrl": "/static/images/Version7/758.png"
+  },
+  {
+    "number": 759,
+    "name": "Stufful",
+    "type": ["Normal", "Fighting"],
+    "imageUrl": "/static/images/Version7/759.png"
+  },
+  {
+    "number": 760,
+    "name": "Bewear",
+    "type": ["Normal", "Fighting"],
+    "imageUrl": "/static/images/Version7/760.png"
+  },
+  {
+    "number": 761,
+    "name": "Bounsweet",
+    "type": ["Grass"],
+    "imageUrl": "/static/images/Version7/761.png"
+  },
+  {
+    "number": 762,
+    "name": "Steenee",
+    "type": ["Grass"],
+    "imageUrl": "/static/images/Version7/762.png"
+  },
+  {
+    "number": 763,
+    "name": "Tsareena",
+    "type": ["Grass"],
+    "imageUrl": "/static/images/Version7/763.png"
+  },
+  {
+    "number": 764,
+    "name": "Comfey",
+    "type": ["Fairy"],
+    "imageUrl": "/static/images/Version7/764.png"
+  },
+  {
+    "number": 765,
+    "name": "Oranguru",
+    "type": ["Normal", "Psychic"],
+    "imageUrl": "/static/images/Version7/765.png"
+  },
+  {
+    "number": 766,
+    "name": "Passimian",
+    "type": ["Fighting"],
+    "imageUrl": "/static/images/Version7/766.png"
+  },
+  {
+    "number": 767,
+    "name": "Wimpod",
+    "type": ["Bug", "Water"],
+    "imageUrl": "/static/images/Version7/767.png"
+  },
+  {
+    "number": 768,
+    "name": "Golisopod",
+    "type": ["Bug", "Water"],
+    "imageUrl": "/static/images/Version7/768.png"
+  },
+  {
+    "number": 769,
+    "name": "Sandygast",
+    "type": ["Ghost", "Ground"],
+    "imageUrl": "/static/images/Version7/769.png"
+  },
+  {
+    "number": 770,
+    "name": "Palossand",
+    "type": ["Ghost", "Ground"],
+    "imageUrl": "/static/images/Version7/770.png"
+  },
+  {
+    "number": 771,
+    "name": "Pyukumuku",
+    "type": ["Water"],
+    "imageUrl": "/static/images/Version7/771.png"
+  },
+  {
+    "number": 772,
+    "name": "Type: Null",
+    "type": ["Normal"],
+    "imageUrl": "/static/images/Version7/772.png"
+  },
+  {
+    "number": 773,
+    "name": "Silvally",
+    "type": ["Normal"],
+    "imageUrl": "/static/images/Version7/773.png"
+  },
+  {
+    "number": 774,
+    "name": "Minior",
+    "type": ["Rock", "Flying"],
+    "imageUrl": "/static/images/Version7/774.png"
+  },
+  {
+    "number": 775,
+    "name": "Komala",
+    "type": ["Normal"],
+    "imageUrl": "/static/images/Version7/775.png"
+  },
+  {
+    "number": 776,
+    "name": "Turtonator",
+    "type": ["Fire", "Dragon"],
+    "imageUrl": "/static/images/Version7/776.png"
+  },
+  {
+    "number": 777,
+    "name": "Togedemaru",
+    "type": ["Electric", "Steel"],
+    "imageUrl": "/static/images/Version7/777.png"
+  },
+  {
+    "number": 778,
+    "name": "Mimikyu",
+    "type": ["Ghost", "Fairy"],
+    "imageUrl": "/static/images/Version7/778.png"
+  },
+  {
+    "number": 779,
+    "name": "Bruxish",
+    "type": ["Water", "Psychic"],
+    "imageUrl": "/static/images/Version7/779.png"
+  },
+  {
+    "number": 780,
+    "name": "Drampa",
+    "type": ["Normal", "Dragon"],
+    "imageUrl": "/static/images/Version7/780.png"
+  },
+  {
+    "number": 781,
+    "name": "Dhelmise",
+    "type": ["Ghost", "Grass"],
+    "imageUrl": "/static/images/Version7/781.png"
+  },
+  {
+    "number": 782,
+    "name": "Jangmo-o",
+    "type": ["Dragon"],
+    "imageUrl": "/static/images/Version7/782.png"
+  },
+  {
+    "number": 783,
+    "name": "Hakamo-o",
+    "type": ["Dragon", "Fighting"],
+    "imageUrl": "/static/images/Version7/783.png"
+  },
+  {
+    "number": 784,
+    "name": "Kommo-o",
+    "type": ["Dragon", "Fighting"],
+    "imageUrl": "/static/images/Version7/784.png"
+  },
+  {
+    "number": 785,
+    "name": "Tapu Koko",
+    "type": ["Electric", "Fairy"],
+    "imageUrl": "/static/images/Version7/785.png"
+  },
+  {
+    "number": 786,
+    "name": "Tapu Lele",
+    "type": ["Psychic", "Fairy"],
+    "imageUrl": "/static/images/Version7/786.png"
+  },
+  {
+    "number": 787,
+    "name": "Tapu Bulu",
+    "type": ["Grass", "Fairy"],
+    "imageUrl": "/static/images/Version7/787.png"
+  },
+  {
+    "number": 788,
+    "name": "Tapu Fini",
+    "type": ["Water", "Fairy"],
+    "imageUrl": "/static/images/Version7/788.png"
+  },
+  {
+    "number": 789,
+    "name": "Cosmog",
+    "type": ["Psychic"],
+    "imageUrl": "/static/images/Version7/789.png"
+  },
+  {
+    "number": 790,
+    "name": "Cosmoem",
+    "type": ["Psychic"],
+    "imageUrl": "/static/images/Version7/790.png"
+  },
+  {
+    "number": 791,
+    "name": "Solgaleo",
+    "type": ["Psychic", "Steel"],
+    "imageUrl": "/static/images/Version7/791.png"
+  },
+  {
+    "number": 792,
+    "name": "Lunala",
+    "type": ["Psychic", "Ghost"],
+    "imageUrl": "/static/images/Version7/792.png"
+  },
+  {
+    "number": 793,
+    "name": "Nihilego",
+    "type": ["Rock", "Poison"],
+    "imageUrl": "/static/images/Version7/793.png"
+  },
+  {
+    "number": 794,
+    "name": "Buzzwole",
+    "type": ["Bug", "Fighting"],
+    "imageUrl": "/static/images/Version7/794.png"
+  },
+  {
+    "number": 795,
+    "name": "Pheromosa",
+    "type": ["Bug", "Fighting"],
+    "imageUrl": "/static/images/Version7/795.png"
+  },
+  {
+    "number": 796,
+    "name": "Xurkitree",
+    "type": ["Electric"],
+    "imageUrl": "/static/images/Version7/796.png"
+  },
+  {
+    "number": 797,
+    "name": "Celesteela",
+    "type": ["Steel", "Flying"],
+    "imageUrl": "/static/images/Version7/797.png"
+  },
+  {
+    "number": 798,
+    "name": "Kartana",
+    "type": ["Grass", "Steel"],
+    "imageUrl": "/static/images/Version7/798.png"
+  },
+  {
+    "number": 799,
+    "name": "Guzzlord",
+    "type": ["Dark", "Dragon"],
+    "imageUrl": "/static/images/Version7/799.png"
+  },
+  {
+    "number": 800,
+    "name": "Necrozma",
+    "type": ["Psychic"],
+    "imageUrl": "/static/images/Version7/800.png"
   },
   {
     "number": 801,
