@@ -100,7 +100,7 @@ app.use(errorMiddleware);
 /*---------------------------Start Server---------------------------*/
 if (NODE_ENV !== 'test') {
   app.listen(PORT, () => {
-    logger.info(`🚀 Server running in ${NODE_ENV} mode at http://localhost:${PORT}`);
+    logger.info(`Server running in ${NODE_ENV} mode at http://localhost:${PORT}`);
   });
 }
 

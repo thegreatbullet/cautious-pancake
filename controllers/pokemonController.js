@@ -7,22 +7,21 @@ import {
 
 import { logMessage } from './logController.js';
 
+// ----------------- Controller -----------------
+
 // GET /api/v1/pokemon
 export const getPokemon = async (req, res, next) => {
   try {
-    const page = Math.max(parseInt(req.query.page) || 1, 1);
-    const limit = Math.min(Math.max(parseInt(req.query.limit) || 20, 1), 100);
-    const result = await serviceGetAllPokemon(page, limit);
+    // Fetch all Pokémon without pagination
+    const result = await serviceGetAllPokemon(); // no page/limit
 
     logMessage('info', 'Fetched all Pokémon', {
-      page,
-      limit,
       count: result.pokemons.length,
     });
 
     res.status(200).json(result);
   } catch (error) {
-    next(error); // errorMiddleware will log it
+    next(error);
   }
 };
 

@@ -14,16 +14,15 @@ const invalidateCache = (prefix) => {
 };
 
 /**
- * GET all Pokémon with pagination and caching
+ * GET all Pokémon (no pagination) with caching
  */
-export const getAllPokemon = async (page = 1, limit = 20) => {
-  const cacheKey = `allPokemon_page${page}_limit${limit}`;
+export const getAllPokemon = async () => {
+  const cacheKey = 'allPokemon';
   const cached = cache.get(cacheKey);
   if (cached) return cached;
 
-  const skip = (page - 1) * limit;
-  const total = await Pokemon.countDocuments();
-  const pokemons = await Pokemon.find().skip(skip).limit(limit).lean();
+  const pokemons = await Pokemon.find().lean();
+  const total = pokemons.length;
 
   const result = { pokemons, total };
   cache.set(cacheKey, result);
@@ -42,7 +41,7 @@ export const createPokemon = async ({ number, name, type, imageUrl }) => {
   });
 
   await pokemon.save();
-  invalidateCache('allPokemon_');
+  invalidateCache('allPokemon');
 
   return pokemon;
 };
@@ -106,5 +105,4 @@ export const getPokemonByIds = async (ids) => {
   return Promise.all(promises);
 };
 
-// Export cache if needed elsewhere
 export { cache };
