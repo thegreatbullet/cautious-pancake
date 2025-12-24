@@ -68,7 +68,7 @@ npm install
 npm run build
 npm start
 ```
-## 🚀 Deployment & Production
+## Deployment & Production
 
 To ensure this API is production-ready, consider the following:
 
@@ -79,7 +79,7 @@ To ensure this API is production-ready, consider the following:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. **Fork** the project.
 2. **Create** your Feature Branch (`git checkout -b feature/AmazingFeature`).
@@ -89,6 +89,6 @@ To ensure this API is production-ready, consider the following:
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the **MIT License**
