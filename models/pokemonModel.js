@@ -1,4 +1,3 @@
-// backend/models/pokemonModel.js
 import mongoose from 'mongoose';
 
 const pokemonSchema = new mongoose.Schema(
@@ -8,27 +7,35 @@ const pokemonSchema = new mongoose.Schema(
       required: true,
       unique: true,
       index: true,
-      min: 1, // ensures Pokémon number is positive
+      min: 1,
     },
     name: {
       type: String,
       required: true,
       index: true,
-      trim: true, // trims leading/trailing spaces automatically
+      trim: true,
     },
     type: {
       type: [String],
       index: true,
-      default: [], // ensures an empty array if none provided
+      default: [],
     },
     imageUrl: {
       type: String,
-      trim: true, // optional, but trims spaces
+      trim: true,
+    },
+    stats: {
+      hp: { type: Number, default: 0 },
+      attack: { type: Number, default: 0 },
+      defense: { type: Number, default: 0 },
+      specialAttack: { type: Number, default: 0 },
+      specialDefense: { type: Number, default: 0 },
+      speed: { type: Number, default: 0 },
     },
   },
   {
     collection: 'pokemon',
-    timestamps: true, // adds createdAt and updatedAt automatically
+    timestamps: true,
   },
 );
 
