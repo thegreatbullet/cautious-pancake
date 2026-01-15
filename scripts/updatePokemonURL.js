@@ -1,22 +1,20 @@
-// backend/scripts/updatePokemonImage.js
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import Pokemon from '../models/pokemonModel.js';
 
 const START = 1;
-const END = 50; // change this for next batches
+const END = 50;
 
 async function main() {
-  // Check Mongo URI
   if (!process.env.MONGO_URI) {
-    console.error('❌ MONGO_URI not found in .env');
+    console.error('MONGO_URI not found in .env');
     process.exit(1);
   }
 
   // Connect to MongoDB Atlas
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log('✅ MongoDB connected');
+    console.log('MongoDB connected');
   } catch (err) {
     console.error('MongoDB Connection Error:', err.message);
     process.exit(1);
@@ -29,13 +27,13 @@ async function main() {
 
       await Pokemon.updateOne({ number: i }, { $set: { imageUrl: newUrl } });
 
-      console.log(`✅ Updated imageUrl for #${i}`);
+      console.log(`Updated imageUrl for #${i}`);
     } catch (err) {
-      console.error(`❌ Failed #${i}: ${err.message}`);
+      console.error(`Failed #${i}: ${err.message}`);
     }
   }
 
-  console.log('✅ Image URLs updated for batch');
+  console.log('Image URLs updated for batch');
   process.exit();
 }
 

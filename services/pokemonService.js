@@ -75,9 +75,6 @@ export const rollRandomPokemon = async () => {
   return randomPokemon;
 };
 
-/**
- * Fetch roll history with pagination and caching
- */
 export const getRollHistory = async (page = 1, limit = 20) => {
   const cacheKey = `rollHistory_page${page}_limit${limit}`;
   const cached = cache.get(cacheKey);
@@ -97,9 +94,6 @@ export const getRollHistory = async (page = 1, limit = 20) => {
   return result;
 };
 
-/**
- * Get Pokémon by array of IDs (parallel fetch)
- */
 export const getPokemonByIds = async (ids) => {
   const promises = ids.map((id) => Pokemon.findById(id).lean());
   return Promise.all(promises);

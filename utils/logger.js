@@ -14,7 +14,7 @@ if (!fs.existsSync(logDir)) {
 }
 
 const logger = createLogger({
-  level: 'info', // Minimum log level
+  level: 'info',
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.errors({ stack: true }),

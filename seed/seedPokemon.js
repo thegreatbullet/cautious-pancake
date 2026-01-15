@@ -1,8 +1,7 @@
-// backend/seed.js
 import mongoose from 'mongoose';
 import Pokemon from './models/pokemonModel.js';
 
-const mongoURI = 'mongodb://localhost:27017/my_database'; // Change DB name if needed
+const mongoURI = 'mongodb://localhost:27017/my_database';
 
 const pokemons = [
   {
@@ -20,7 +19,6 @@ const pokemons = [
     imageUrl: '../static/images/Version1/6.webp',
   },
   { number: 7, name: 'Squirtle', type: ['Water'], imageUrl: '../static/images/Version1/7.webp' },
-  // ... continue all other Pokémon
   { number: 151, name: 'Mew', type: ['Psychic'], imageUrl: '../static/images/Version1/151.webp' },
 ];
 

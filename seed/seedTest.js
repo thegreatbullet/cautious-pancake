@@ -42,18 +42,18 @@ const pokemons = [
 const seedDB = async () => {
   try {
     await mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log('✅ Connected to test DB');
+    console.log('Connected to test DB');
 
     // Clear the collection first
     await Pokemon.deleteMany();
 
     // Insert Pokémon
     await Pokemon.insertMany(pokemons);
-    console.log('✅ Seeded test Pokémon');
+    console.log('Seeded test Pokémon');
 
     process.exit(0);
   } catch (err) {
-    console.error('❌ Error seeding DB:', err);
+    console.error('Error seeding DB:', err);
     process.exit(1);
   }
 };

@@ -1,12 +1,10 @@
-// backend/routes/authRoutes.js
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
 import User from '../models/UserModel.js';
 
 const router = express.Router();
 
-// Register
+// Register Route
 router.post('/register', async (req, res) => {
   try {
     const { username, password, role } = req.body;
@@ -18,7 +16,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
+// Login Route
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;

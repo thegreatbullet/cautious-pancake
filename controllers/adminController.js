@@ -2,7 +2,7 @@ import Pokemon from '../models/pokemonModel.js';
 import RollHistory from '../models/pokemonRollHistoryModel.js';
 import { logMessage } from './logController.js';
 
-// Delete a Pokémon (admin only)
+// Delete a Pokémon
 export const deletePokemon = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -21,7 +21,7 @@ export const deletePokemon = async (req, res, next) => {
   }
 };
 
-// Delete a roll history entry (admin only)
+// Delete a roll history entry
 export const deleteRollHistory = async (req, res, next) => {
   try {
     const { id } = req.params;

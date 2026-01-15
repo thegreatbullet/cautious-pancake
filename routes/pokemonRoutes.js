@@ -16,18 +16,17 @@ import authMiddleware from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// ----------------- Rate Limiting -----------------
-// Limit Pokémon rolls: 20 requests per 30 minutes per IP
+// Limit 100 rolls per IP
 const rollLimiter = rateLimit({
-  windowMs: 30 * 60 * 1000, // 30 minutes
-  max: 20,
+  windowMs: 30 * 60 * 1000,
+  max: 100,
   message: 'Too many rolls, try again later.',
 });
 
 // ----------------- Public Routes -----------------
 router.get('/', getPokemon); // GET all Pokémon
 router.post('/', validateBody(pokemonSchema), addPokemon); // POST new Pokémon
-router.post('/roll', rollLimiter, rollPokemon); // POST a roll with limiter
+router.post('/roll', rollLimiter, rollPokemon); // POST a roll
 router.get('/roll/history', getRollHistory); // GET roll history
 
 // ----------------- Admin-only Routes -----------------

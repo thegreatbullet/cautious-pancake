@@ -7,22 +7,22 @@ const rollHistorySchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Pokemon',
       required: true,
-      index: true, // allows fast lookups by pokemonId
+      index: true,
     },
     name: {
       type: String,
       required: true,
-      trim: true, // removes extra spaces
+      trim: true,
     },
     rolledAt: {
       type: Date,
       default: Date.now,
-      index: true, // allows sorting by recent rolls efficiently
+      index: true,
     },
   },
   {
     collection: 'rollHistory',
-    timestamps: true, // adds createdAt and updatedAt automatically
+    timestamps: true,
   },
 );
 

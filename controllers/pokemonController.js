@@ -7,7 +7,7 @@ import {
 
 import { logMessage } from './logController.js';
 
-// ----------------- Controller -----------------
+// ----------------- Controller ----------------- //
 
 // GET /api/v1/pokemon
 export const getPokemon = async (req, res, next) => {

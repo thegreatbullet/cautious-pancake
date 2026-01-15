@@ -39,10 +39,10 @@ describe('Pokemon API', () => {
         name: 'Bulbasaur',
         number: 1,
         type: ['Grass', 'Poison'],
-        imageUrl: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png', // valid image URL
+        imageUrl: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png',
       });
 
-    console.log('POST /api/v1/pokemon response:', res.statusCode, res.body); // Debug
+    console.log('POST /api/v1/pokemon response:', res.statusCode, res.body);
 
     expect(res.statusCode).toBe(201); // should now succeed
     expect(res.body.name).toBe('Bulbasaur');
