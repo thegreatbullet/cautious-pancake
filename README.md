@@ -1,6 +1,6 @@
 # Pokémon Backend API
 
-A **production-ready backend service** for managing Pokémon data and roll mechanics. Designed to demonstrate **real-world backend engineering practices** including security, observability, and automated testing.
+A **production-ready backend service** for managing Pokémon data and roll mechanics. 
 
 ---
 
