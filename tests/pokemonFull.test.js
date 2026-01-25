@@ -16,9 +16,14 @@ jest.mock('../utils/logger', () => ({
 }));
 
 // -----------------------------
+// FORCE TEST SECRET
+// -----------------------------
+process.env.JWT_SECRET = 'testsecret';
+
+// -----------------------------
 // JEST TIMEOUT
 // -----------------------------
-jest.setTimeout(10000); // 10s should be enough for memory DB tests
+jest.setTimeout(20000); // 20s for MongoMemoryServer operations
 
 let mongoServer;
 let adminToken;
@@ -28,16 +33,17 @@ let userToken;
 // GLOBAL SETUP
 // -----------------------------
 beforeAll(async () => {
-  // Start in-memory MongoDB once
   mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
   await mongoose.connect(uri, { dbName: 'pokemon_test' });
 
-  const secret = process.env.JWT_SECRET || 'testsecret';
-
-  // Generate consistent tokens
-  adminToken = jwt.sign({ role: 'admin', id: 'adminId' }, secret, { expiresIn: '1h' });
-  userToken = jwt.sign({ role: 'user', id: 'userId' }, secret, { expiresIn: '1h' });
+  // Generate consistent tokens with _id field (common in auth middleware)
+  adminToken = jwt.sign({ role: 'admin', _id: 'adminId' }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
+  userToken = jwt.sign({ role: 'user', _id: 'userId' }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
 });
 
 // -----------------------------
@@ -53,7 +59,7 @@ afterAll(async () => {
 // CLEAN DB BEFORE EACH TEST
 // -----------------------------
 beforeEach(async () => {
-  // Parallel deletion of all collections for speed
+  // Parallel deletion of all collections
   await Promise.all(
     Object.values(mongoose.connection.collections).map((col) => col.deleteMany({})),
   );
@@ -148,10 +154,11 @@ describe('Pokémon API Full Test Suite', () => {
       imageUrl: 'https://example.com/bulbasaur.png',
     });
 
-    // First 19 requests in parallel
-    await Promise.all([...Array(19)].map(() => request(app).post('/api/v1/pokemon/roll')));
+    // Sequential requests to trigger rate limit
+    for (let i = 0; i < 19; i++) {
+      await request(app).post('/api/v1/pokemon/roll');
+    }
 
-    // 20th request should be blocked
     const blocked = await request(app).post('/api/v1/pokemon/roll');
     expect(blocked.statusCode).toBe(429);
   });
