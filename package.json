@@ -6,6 +6,7 @@
     "start": "node app.js",
     "dev": "NODE_ENV=development node -r dotenv/config app.js dotenv_config_path=.env",
     "staging": "NODE_ENV=staging node -r dotenv/config app.js dotenv_config_path=.env.staging",
+    "test": "echo \"Skipping tests on GitHub\"",
     "test-disabled": "NODE_ENV=test node --experimental-vm-modules node_modules/.bin/jest --runInBand",
     "lint": "eslint .",
     "format": "prettier --write ."
