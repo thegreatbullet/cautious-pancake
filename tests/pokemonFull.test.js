@@ -7,38 +7,61 @@ import app from '../app.js';
 import Pokemon from '../models/pokemonModel.js';
 import RollHistory from '../models/pokemonRollHistoryModel.js';
 
-jest.setTimeout(30000); // 30 seconds for slow tests
+// -----------------------------
+// MOCK LOGGER TO SPEED UP TESTS
+// -----------------------------
+jest.mock('../utils/logger', () => ({
+  info: jest.fn(),
+  error: jest.fn(),
+}));
+
+// -----------------------------
+// JEST TIMEOUT
+// -----------------------------
+jest.setTimeout(10000); // 10s should be enough for memory DB tests
 
 let mongoServer;
 let adminToken;
 let userToken;
 
+// -----------------------------
+// GLOBAL SETUP
+// -----------------------------
 beforeAll(async () => {
+  // Start in-memory MongoDB once
   mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
   await mongoose.connect(uri, { dbName: 'pokemon_test' });
 
   const secret = process.env.JWT_SECRET || 'testsecret';
 
-  // Generate tokens with consistent payload
+  // Generate consistent tokens
   adminToken = jwt.sign({ role: 'admin', id: 'adminId' }, secret, { expiresIn: '1h' });
   userToken = jwt.sign({ role: 'user', id: 'userId' }, secret, { expiresIn: '1h' });
 });
 
+// -----------------------------
+// GLOBAL TEARDOWN
+// -----------------------------
 afterAll(async () => {
   await mongoose.connection.dropDatabase();
   await mongoose.connection.close();
   await mongoServer.stop();
 });
 
+// -----------------------------
+// CLEAN DB BEFORE EACH TEST
+// -----------------------------
 beforeEach(async () => {
-  // Clear all collections
-  const collections = Object.keys(mongoose.connection.collections);
-  for (const collectionName of collections) {
-    await mongoose.connection.collections[collectionName].deleteMany({});
-  }
+  // Parallel deletion of all collections for speed
+  await Promise.all(
+    Object.values(mongoose.connection.collections).map((col) => col.deleteMany({})),
+  );
 });
 
+// -----------------------------
+// TEST SUITE
+// -----------------------------
 describe('Pokémon API Full Test Suite', () => {
   test('GET /api/v1/pokemon returns empty initially', async () => {
     const res = await request(app).get('/api/v1/pokemon');
@@ -74,7 +97,7 @@ describe('Pokémon API Full Test Suite', () => {
       .post('/api/v1/pokemon')
       .set('Authorization', `Bearer ${adminToken}`)
       .send({
-        number: 1, // duplicate
+        number: 1,
         name: 'Charmander',
         type: ['Fire'],
         imageUrl: 'https://example.com/charmander.png',
@@ -114,5 +137,22 @@ describe('Pokémon API Full Test Suite', () => {
 
     expect(res.statusCode).toBe(403);
     expect(res.body.error).toMatch(/forbidden/i);
+  });
+
+  test('Rate limit on /pokemon/roll works', async () => {
+    // Seed DB
+    await Pokemon.create({
+      number: 1,
+      name: 'Bulbasaur',
+      type: ['Grass'],
+      imageUrl: 'https://example.com/bulbasaur.png',
+    });
+
+    // First 19 requests in parallel
+    await Promise.all([...Array(19)].map(() => request(app).post('/api/v1/pokemon/roll')));
+
+    // 20th request should be blocked
+    const blocked = await request(app).post('/api/v1/pokemon/roll');
+    expect(blocked.statusCode).toBe(429);
   });
 });
