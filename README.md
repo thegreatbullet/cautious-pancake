@@ -4,24 +4,9 @@ A **production-ready backend service** for managing Pokémon data and roll mecha
 
 ---
 
-## Tech Stack
-
-| Category              | Tools                                    |
-| :-------------------- | :--------------------------------------- |
-| **Runtime/Framework** | Node.js (ESM), Express                   |
-| **Database**          | MongoDB + Mongoose                       |
-| **Security**          | JWT, Helmet, Express-Rate-Limit          |
-| **Testing**           | Jest, Supertest, MongoDB Memory Server   |
-| **Observability**     | Winston (Logging), Prom-client (Metrics) |
-| **Validation**        | Joi                                      |
-
----
-
 ## Project Architecture
 
 The project follows a **Layered Architecture** pattern to ensure the codebase remains maintainable and scalable.
-
-
 
 * **API Layer:** Express routes and controllers handling HTTP logic.
 * **Service Layer:** Core business logic (e.g., the probability logic for Pokémon rolls).
@@ -55,6 +40,19 @@ The system is built for **Test-Driven Development (TDD)**:
 
 ---
 
+## Tech Stack
+
+| Category              | Tools                                    |
+| :-------------------- | :--------------------------------------- |
+| **Runtime/Framework** | Node.js (ESM), Express                   |
+| **Database**          | MongoDB + Mongoose                       |
+| **Security**          | JWT, Helmet, Express-Rate-Limit          |
+| **Testing**           | Jest, Supertest, MongoDB Memory Server   |
+| **Observability**     | Winston (Logging), Prom-client (Metrics) |
+| **Validation**        | Joi                                      |
+
+---
+
 ## Getting Started
 
 ### 1. Installation
@@ -76,16 +74,6 @@ To ensure this API is production-ready, consider the following:
 * **Rate Limiting:** Protects against DDoS and brute-force on the `/roll` and `/login` endpoints.
 * **Security Headers:** Managed via `Helmet` to prevent common web vulnerabilities (XSS, Clickjacking).
 * **Dockerization:** Use the provided `Dockerfile` to containerize the service.
-
----
-
-## Contributing
-
-1. **Fork** the project.
-2. **Create** your Feature Branch (`git checkout -b feature/AmazingFeature`).
-3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`).
-4. **Push** to the Branch (`git push origin feature/AmazingFeature`).
-5. **Open** a Pull Request.
 
 ---
 
