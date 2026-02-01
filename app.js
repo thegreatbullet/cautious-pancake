@@ -77,7 +77,7 @@ logger.defaultMeta = { service: process.env.LOG_SERVICE_NAME || 'pokemon-backend
 /*---------------------------Routes---------------------------*/
 app.get('/', (req, res) => {
   logger.info('GET / from %s', req.ip);
-  res.send('Welcome to the Express and MongoDB app!');
+  res.send('Welcome to Pokemon Randomizer Backend!');
 });
 
 app.use('/api/v1/pokemon', pokemonRoutes);
